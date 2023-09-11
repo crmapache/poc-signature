@@ -1,10 +1,37 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import Signature from "react-native-signature-canvas";
+import {useState} from "react";
 
 export default function App() {
+  const [signature, setSign] = useState(null);
+  
+  const handleOK = (signature) => {
+    console.log(signature);
+    setSign(signature);
+  };
+  
+  const handleEmpty = () => {
+    console.log("Empty");
+  };
+  
+  const style = `.m-signature-pad--footer
+    .button {
+      background-color: red;
+      color: #FFF;
+    }`;
+  
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Signature
+        onOK={handleOK}
+        onEmpty={handleEmpty}
+        descriptionText="Sign"
+        clearText="Clear"
+        confirmText="Save"
+        webStyle={style}
+        autoClear={true}
+      />
       <StatusBar style="auto" />
     </View>
   );
@@ -13,8 +40,17 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 20,
+  },
+  preview: {
+    backgroundColor: "#c6c3c3",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 15,
+    marginBottom: 20,
+  },
+  image: {
+    width: 335,
+    height: 200,
   },
 });
